@@ -1,23 +1,45 @@
 class GithubUsersController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def index
     @github_users = GithubUser.all
   end
 
   def show
-    # @github_user = GithubUser.find(params[:id])
+    @github_user = GithubUser.find(params[:id])
+  end
 
-    github_user = params[:id]
-    url = "/users/#{github_user}/repos"
+  def create
+    # TODO: Create the GithubUser, repos, number of stars, and language breakdown
+    # @github_user = GithubUser.create(github_user_params)
 
-    response = conn.get(url) do |req|
-      req.params['page'] = 1
-      req.params['per_page'] = 100
+    github_user_name = params[:username]
+
+    url = "/users/#{github_user_name}/repos"
+
+    repos = []
+    page = 1
+
+    loop do
+      response = conn.get(url) do |req|
+        req.params['page'] = page
+        req.params['per_page'] = 100
+      end
+
+      break if response.body.empty?
+
+      page += 1
+      repos += response.body
     end
 
-    render json: response.body
+    render json: repos
   end
 
   private
+
+  def github_user_params
+    params.require(:github_user).permit(:username)
+  end
 
   def conn
     options = {
