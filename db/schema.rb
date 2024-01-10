@@ -10,12 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_09_165318) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_10_153904) do
   create_table "api_tokens", force: :cascade do |t|
     t.string "name"
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "github_users", force: :cascade do |t|
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "repos", force: :cascade do |t|
+    t.integer "github_user_id"
+    t.string "name"
+    t.integer "stars"
+    t.string "language"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["github_user_id"], name: "index_repos_on_github_user_id"
   end
 
 end
