@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   root 'github_users#index'
 
-  resources :github_users, only: %i[index show create]
+  resources :github_users, only: %i[index show new create]
 end
