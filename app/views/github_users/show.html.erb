@@ -1,0 +1,16 @@
+<h3><%= @github_user.username %></h3>
+
+<table class="table">
+  <tr>
+    <th>Repo Name</th>
+    <th>Stars</th>
+    <th>Primary Language</th>
+  </tr>
+  <% @github_user.repos.each do |repo| %>
+    <tr>
+      <td><%= repo.name %></td>
+      <td><%= repo.stars %></td>
+      <td><%= repo.language %></td>
+    </tr>
+  <% end %>
+</table>

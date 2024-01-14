@@ -1,0 +1,9 @@
+<% unless @github_users.empty? %>
+  <h3>Registered GitHub Users</h3>
+
+  <ul class="github_users">
+    <% @github_users.each do |gh_user| %>
+      <li><%= link_to gh_user.username, github_user_path(gh_user) %></li>
+    <% end %>
+  </ul>
+<% end %>

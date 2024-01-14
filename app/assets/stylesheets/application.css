@@ -14,11 +14,18 @@
  *= require_self
  */
 
-.alert {
-  margin-top: var(--bs-alert-margin-bottom);
+.menu {
+  border-bottom: 1px solid #333;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
 }
 
-.github_user {
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.alert, .notice {
+  margin: 1em;
+  padding: 0.5em;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
 }

@@ -17,8 +17,12 @@
   </head>
 
   <body class="container">
+    <h1 class="page-title">Github Users</h1>
+
+    <div class="menu"><%= link_to "All", github_users_path %> | <%= link_to "New Github User", new_github_user_path %></div>
+
     <% flash.each do |type, msg| %>
-      <div>
+      <div class="<%= type %> <%= type == 'notice' ? 'text-bg-success' : 'text-bg-danger' %>">
         <%= msg %>
       </div>
     <% end %>

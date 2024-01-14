@@ -1,0 +1,4 @@
+<%= form_for @github_user do |f| %>
+  <label for="github_user_username">Github Username</label><br>
+  <%= f.text_field :username %> <%= f.submit 'Register Github User' %>
+<% end %>
