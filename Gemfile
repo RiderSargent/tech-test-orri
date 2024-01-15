@@ -28,3 +28,7 @@ group :development do
   gem 'pry-rails'
   gem 'web-console'
 end
+
+group :test do
+  gem 'rails-controller-testing'
+end
