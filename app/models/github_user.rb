@@ -19,6 +19,8 @@ class GithubUser < ApplicationRecord
       end
 
       ghu
+    rescue Faraday::ResourceNotFound
+      raise InvalidGithubUserError
     end
 
     def fetch_repos(username)
@@ -40,8 +42,6 @@ class GithubUser < ApplicationRecord
       end
 
       repos
-    rescue Faraday::ResourceNotFound
-      raise InvalidGithubUserError
     end
 
     def conn
@@ -57,5 +57,35 @@ class GithubUser < ApplicationRecord
         builder.response :raise_error
       end
     end
+  end
+
+  def stars
+    repos.sum(:stars)
+  end
+
+  def languages
+    repos.pluck(:language).uniq
+  end
+
+  def has_ruby?
+    has_lang?('Ruby')
+  end
+
+  def has_python?
+    has_lang?('Python')
+  end
+
+  def has_golang?
+    has_lang?('Go')
+  end
+
+  def has_typescript?
+    has_lang?('TypeScript')
+  end
+
+  private
+
+  def has_lang?(language)
+    languages.include?(language)
   end
 end
