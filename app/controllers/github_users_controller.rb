@@ -16,10 +16,16 @@ class GithubUsersController < ApplicationController
   end
 
   def create
-    ghu = GithubUser.create_from_github_username(params[:github_user][:username])
+    ghu = GithubUser.create_from_github_username(github_user_params[:username])
 
     redirect_to ghu, notice: 'Github User created successfully.'
   rescue GithubUser::InvalidGithubUserError
     redirect_to :new_github_user, alert: 'Unable to create Github User - Please try again.'
+  end
+
+  private
+
+  def github_user_params
+    params.require(:github_user).permit(:username)
   end
 end
